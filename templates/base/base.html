@@ -5,15 +5,15 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		{% block title%}
-        <title>Wordle by 3-OAK Brothers</title>
-        {% endblock title %}
+        <title>
+			{% block title %}Wordle by 3-OAK Brothers{% endblock title %}
+		</title>
 		<link rel="stylesheet" type="text/css" href="{% static '/styles/tailwindcss/input.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static '/styles/tailwindcss/output.css' %}" />
         {% block script %}{% endblock script %}
 	</head>
 
-	<body class="bg-[#0B1340] h-screen w-screen">
+	<body class="bg-[#0B1340] h-screen w-screen flex items-center justify-center">
         {% block body %}
         {% endblock body %}
 	</body>

@@ -33,18 +33,18 @@ Select word length
         </div>
     </div>
     <div class="flex flex-col gap-6">
-        <div class="flex justify-center font-Metral-Light text-white text-center text-2xl">
-            <h6 class="">Select a word length:</h6>
+        <div class="flex justify-center font-Metral-Regular text-white text-center ">
+            <h6 class="text-Pre-Xl sm:text-2xl">Select a word length:</h6>
         </div>
-        <div class="flex flex-row gap-5">
-            <a href="./four.html"
-                class="py-3 px-6 border-2 font-Metral-Bold text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">Four
+        <div class="flex flex-col sm:flex-row gap-5 px-6 sm:px-0">
+            <a href="{% url "fourLetters:index" %}"
+                class="py-3 px-3 sm:px-6 text-center border-2 font-Metral-Bold text-Semi-Medium sm:text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">Four
                 Letter</a>
-            <a href="./five.html"
-                class="py-3 px-6 border-2 font-Metral-Bold text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">Five
+            <a href="{% url "fiveLetters:index" %}"
+                class="py-3 px-3 sm:px-6 text-center border-2 font-Metral-Bold text-Semi-Medium sm:text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">Five
                 Letter</a>
-            <a href="./six.html"
-                class="py-3 px-6 border-2 font-Metral-Bold text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">Six
+            <a href="{% url "sixLetters:index" %}"
+                class="py-3 px-3 sm:px-6 text-center border-2 font-Metral-Bold text-Semi-Medium sm:text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">Six
                 Letter</a>
         </div>
     </div>
