@@ -6,46 +6,48 @@ Select word length
 {% endblock title %}
 
 {% block body %}
-<div id="body-content" class="h-full w-full flex items-center justify-center flex-col gap-10">
-    <div class="flex justify-center">
-        <a href="{% url 'home:home' %}" class="flex items-center gap-2 font-Metral-Medium text-white hover:underline">
-            < Return 
-        </a>
-    </div>
-    <div class="flex flex-col gap-3">
-        <div id="wordleIndicator" class="flex flex-col">
-            <div class="grid grid-cols-4 ">
-                <div class="bg-green-500 border-white border-2  p-4 rounded-tl-md"></div>
-                <div class="bg-red-600 border-white border-2  p-4"></div>
-                <div class="bg-transparent border-white border-2  p-4"></div>
-                <div class="bg-red-600  border-2 border-white p-4 rounded-tr-md"></div>
+<div id="glass" class="h-screen py-8 px-2 xsm:px-5 md:px-10">
+    <div id="body-content" class="h-full w-full flex items-center justify-center flex-col gap-10">
+        <div>
+            <a href="{% url "home:home" %}" class="flex flex-col gap-3">
+                <div id="wordleIndicator" class="flex flex-col">
+                    <div class="grid grid-cols-4 ">
+                        <div class="bg-green-500 border-white border-2  p-4 rounded-tl-md"></div>
+                        <div class="bg-red-600 border-white border-2  p-4"></div>
+                        <div class="bg-transparent border-white border-2  p-4"></div>
+                        <div class="bg-red-600  border-2 border-white p-4 rounded-tr-md"></div>
+                    </div>
+                    <div class="grid grid-cols-4 ">
+                        <div class="bg-yellow-400  border-2 border-white  p-4 rounded-bl-md"></div>
+                        <div class="bg-transparent  border-2 border-white   p-4"></div>
+                        <div class="bg-green-500  border-2 border-white p-4"></div>
+                        <div class="bg-yellow-400  border-2 border-white  p-4 rounded-br-md"></div>
+                    </div>
+                </div>
+        
+                <div class="text-white w-full flex justify-center">
+                    <h5 class="font-Metral-ExtraLight text-4xl">Wordathlon</h5>
+                </div>
+            </a>
+        </div>
+        <div class="flex flex-col gap-6">
+            <div class="flex justify-center font-Metral-Regular text-white text-center ">
+                <h6 class="text-Pre-Xl sm:text-2xl">Preferred word length?</h6>
             </div>
-            <div class="grid grid-cols-4 ">
-                <div class="bg-yellow-400  border-2 border-white  p-4 rounded-bl-md"></div>
-                <div class="bg-transparent  border-2 border-white   p-4"></div>
-                <div class="bg-green-500  border-2 border-white p-4"></div>
-                <div class="bg-yellow-400  border-2 border-white  p-4 rounded-br-md"></div>
+            <div class="flex flex-col sm:flex-row gap-5 px-6 sm:px-0">
+                <a href="{% url "fourLetters:index" %}"
+                    class="py-3 px-3 sm:px-6 text-center border-2 font-Metral-Bold text-Semi-Medium sm:text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">
+                    Four
+                </a>
+                <a href="{% url "fiveLetters:index" %}"
+                    class="py-3 px-3 sm:px-6 text-center border-2 font-Metral-Bold text-Semi-Medium sm:text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">
+                    Five
+                </a>
+                <a href="{% url "sixLetters:index" %}"
+                    class="py-3 px-3 sm:px-6 text-center border-2 font-Metral-Bold text-Semi-Medium sm:text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">
+                    Six
+                </a>
             </div>
-        </div>
-
-        <div class="text-white w-full flex justify-center">
-            <h5 class="font-Metral-ExtraBold text-4xl">Wordle</h5>
-        </div>
-    </div>
-    <div class="flex flex-col gap-6">
-        <div class="flex justify-center font-Metral-Regular text-white text-center ">
-            <h6 class="text-Pre-Xl sm:text-2xl">Select a word length:</h6>
-        </div>
-        <div class="flex flex-col sm:flex-row gap-5 px-6 sm:px-0">
-            <a href="{% url "fourLetters:index" %}"
-                class="py-3 px-3 sm:px-6 text-center border-2 font-Metral-Bold text-Semi-Medium sm:text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">Four
-                Letter</a>
-            <a href="{% url "fiveLetters:index" %}"
-                class="py-3 px-3 sm:px-6 text-center border-2 font-Metral-Bold text-Semi-Medium sm:text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">Five
-                Letter</a>
-            <a href="{% url "sixLetters:index" %}"
-                class="py-3 px-3 sm:px-6 text-center border-2 font-Metral-Bold text-Semi-Medium sm:text-Large rounded-2xl text-white hover:bg-white hover:text-[#0B1340]">Six
-                Letter</a>
         </div>
     </div>
 </div>

@@ -2,41 +2,40 @@
 {% load static %}
 
 {% block body %}
-<div id="body-content" class="h-full flex items-center justify-center flex-col gap-10">
-    <div class="flex flex-col gap-3">
-        <div id="wordleIndicator" class="flex flex-col">
-            <div  class="grid grid-cols-4 ">
-                <div class="bg-green-500 border-white border-2  p-4 rounded-tl-md"></div>
-                <div class="bg-red-600 border-white border-2  p-4"></div>
-                <div class="bg-transparent border-white border-2  p-4"></div>
-                <div class="bg-red-600  border-2 border-white p-4 rounded-tr-md"></div>
+<div id="glass" class="h-screen py-8 px-2 xsm:px-5 md:px-10">
+    <div id="body-content" class="h-full flex items-center justify-center flex-col gap-10">
+        <div class="flex flex-col gap-3">
+            <div id="wordleIndicator" class="flex flex-col">
+                <div  class="grid grid-cols-4 ">
+                    <div class="bg-green-500 border-white border-2  p-4 rounded-tl-md"></div>
+                    <div class="bg-red-600 border-white border-2  p-4"></div>
+                    <div class="bg-transparent border-white border-2  p-4"></div>
+                    <div class="bg-red-600  border-2 border-white p-4 rounded-tr-md"></div>
+                </div>
+                <div class="grid grid-cols-4 ">
+                    <div class="bg-yellow-400  border-2 border-white  p-4 rounded-bl-md"></div>
+                    <div class="bg-transparent  border-2 border-white   p-4"></div>
+                    <div class="bg-green-500  border-2 border-white p-4"></div>
+                    <div class="bg-yellow-400  border-2 border-white  p-4 rounded-br-md"></div>
+                </div>
             </div>
-            <div class="grid grid-cols-4 ">
-                <div class="bg-yellow-400  border-2 border-white  p-4 rounded-bl-md"></div>
-                <div class="bg-transparent  border-2 border-white   p-4"></div>
-                <div class="bg-green-500  border-2 border-white p-4"></div>
-                <div class="bg-yellow-400  border-2 border-white  p-4 rounded-br-md"></div>
+            
+            <div class="text-white w-full flex justify-center">
+                <h5 class="font-Metral-ExtraLight text-4xl">Wordathlon</h5>
             </div>
+        </div>
+    
+        <div class="">
+            <p class="font-Metral-Regular text-white text-center text-2xl">Ready for the challenge? </p>
         </div>
         
-        <div class="text-white w-full flex justify-center">
-            <h5 class="font-Metral-ExtraBold text-4xl">Wordle</h5>
+        <div class="flex w-full justify-center items-center gap-6">
+            <a href="{% url 'home:select' %}" class="border-2 rounded-2xl py-3 px-6 text-xl font-Metral-Medium text-white bg-[#09a909] border-[#13d913ca]">
+                Play Now
+            </a>
         </div>
-    </div>
-
-    <div class="">
-        <p class="font-Metral-Light text-white text-center text-2xl">Ready for the challenge? <br> Guess words of 4, 5, or 6 letters. </p>
-    </div>
     
-    <div class="flex w-full justify-center items-center gap-6">
-        <a href="#" class="border-2 rounded-2xl py-3 px-6 font-Metral-Medium text-white hover:text-[#0B1340] hover:bg-white">
-            Instructions
-        </a>
-        <a href="{% url 'home:select' %}" class="border-2 rounded-2xl py-3 px-6 font-Metral-Medium text-white bg-[#09a909] border-[#13d913ca]">
-            Play Now
-            <img src="./src/static/images/home/play.svg" class="h-6  inline-block" alt="" srcset="">
-        </a>
     </div>
-
 </div>
+
 {% endblock body %}

@@ -1,38 +1,123 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %}
-Five Letters - Wordle by 3-OAK Brothers
-{% endblock title %}
-
 {% block script %}
 <script src="{% static "scripts/autoCaps.js" %}" defer></script>
 <script src="{% static "scripts/autosubmit.js" %}" defer></script>
 {% endblock script %}
 
 {% block body %}
-<form id="submitForm" method="POST" action="{% url "sixLetters:index" %}" class="">
-    {% csrf_token %}
-    <div id="body-content" class="h-full flex {% if show_new_row %}flex-col gap-3{% endif %} font-Metral-Bold" >
-        <div class="flex flex-row gap-3">
-            <input type="{{ form.letterOne.field.widget.input_type }}" name="{{ form.letterOne.html_name }}" id="{{ form.letterOne.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterOne.auto_id }}')" class="input border-2 rounded-sm focus:outline-none focus:ring focus:ring-violet-300 disabled:opacity-65 {{ match_status_with_css.0 }} flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl text-white" style="background-color: {% if not match_status_with_css.0 %} transparent {% else %} {{ match_status_with_csss.0 }} {% endif %} !important;" {% if match_status_with_css.0 %} disabled value="{{ form.letterOne.value }}" {% endif %} autofocus>
-            <input type="{{ form.letterTwo.field.widget.input_type }}" name="{{ form.letterTwo.html_name }}" id="{{ form.letterTwo.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterTwo.auto_id }}')" class="input border-2 rounded-sm focus:outline-none focus:ring focus:ring-violet-300 disabled:opacity-65 {{ match_status_with_css.1 }} flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl text-white" style="background-color: {% if not match_status_with_css.1 %} transparent {% else %} {{ match_status_with_csss.1 }} {% endif %} !important;" {% if match_status_with_css.1 %} disabled value="{{ form.letterTwo.value }}" {% endif %}>
-            <input type="{{ form.letterThree.field.widget.input_type }}" name="{{ form.letterThree.html_name }}" id="{{ form.letterThree.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterThree.auto_id }}')" class="input border-2 rounded-sm focus:outline-none focus:ring focus:ring-violet-300 disabled:opacity-65 {{ match_status_with_css.2 }} flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl text-white" style="background-color: {% if not match_status_with_css.2 %} transparent {% else %} {{ match_status_with_csss.2 }} {% endif %} !important;" {% if match_status_with_css.2 %} disabled value="{{ form.letterThree.value }}" {% endif %}>
-            <input type="{{ form.letterFour.field.widget.input_type }}" name="{{ form.letterFour.html_name }}" id="{{ form.letterFour.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterFour.auto_id }}')" class="input border-2 rounded-sm focus:outline-none focus:ring focus:ring-violet-300 disabled:opacity-65 {{ match_status_with_css.3 }} flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl text-white" style="background-color: {% if not match_status_with_css.3 %} transparent {% else %} {{ match_status_with_csss.3 }} {% endif %} !important;" {% if match_status_with_css.3 %} disabled value="{{ form.letterFour.value }}" {% endif %}>
-            <input type="{{ form.letterFive.field.widget.input_type }}" name="{{ form.letterFive.html_name }}" id="{{ form.letterFive.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterFive.auto_id }}')" class="input border-2 rounded-sm focus:outline-none focus:ring focus:ring-violet-300 disabled:opacity-65 {{ match_status_with_css.4 }} flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl text-white" style="background-color: {% if not match_status_with_css.4 %} transparent {% else %} {{ match_status_with_csss.4 }} {% endif %} !important;" {% if match_status_with_css.4 %} disabled value="{{ form.letterFive.value }}" {% endif %}>
-            <input type="{{ form.letterSix.field.widget.input_type }}" name="{{ form.letterSix.html_name }}" id="{{ form.letterSix.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterSix.auto_id }}')" class="input border-2 rounded-sm focus:outline-none focus:ring focus:ring-violet-300 disabled:opacity-65 {{ match_status_with_css.5 }} flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl text-white" style="background-color: {% if not match_status_with_css.5 %} transparent {% else %} {{ match_status_with_csss.5 }} {% endif %} !important;" {% if match_status_with_css.5 %} disabled value="{{ form.letterSix.value }}" {% endif %}>
+<div id="main-container" class="flex flex-col-reverse gap-2 lg:gap-8 md:flex-row w-full h-full overflow-hidden overflow-y-scroll">
+    <section class="w-full h-auto md:h-full flex items-center justify-center py-10 px-10">
+        <div id="glass" class="bg-white h-full w-full md:rounded-tl-2xl rounded-br-2xl md:rounded-br-none rounded-bl-2xl py-8 px-2 xsm:px-5 md:px-10 gap-5 overflow-y-scroll text-white">
+            <div id="guide-heading" class="flex flex-col gap-0">
+                <h6 class="font-Metral-Bold md:text-xl lg:text-3xl underline">How To Play</h6>
+                <p class="text-Small md:text-Semi-Medium lg:text-Large font-Metral-Light sm:font-Metral-Regular">You're allowed 6 tries.</p>
+            </div>
+            <div id="guide-body" class="px-5  font-Metral-Light ">
+                <ul class="list-disc text-Tiny xsm:text-XSmall md:text-Small lg:text-Base">
+                    <li>
+                        <p>
+                            Each guess must be a valid 6-letter word.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            The color of the line below the text will change to show you how close your guess is to the actual word.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div id="guide-examples" class="mt-7">
+                <h6 class="font-Metral-ExtraBold">Examples</h6>
+                <div id="exists" class="">
+                    <div id="exists-example" class="flex font-Metral-Medium md:text-Large lg:text-xl gap-2">
+                        <div class="border-b-4 border-green-500 text-green-500 px-3">B</div>
+                        <div class="border-b-4 border-gray-600 px-3">E</div>
+                        <div class="border-b-4 border-gray-600 px-3">A</div>
+                        <div class="border-b-4 border-gray-600 px-3">R</div>
+                    </div>
+                    <div id="exists-brief" class="font-Metral-ExtraLight mt-1 text-Tiny xsm:text-XSmall md:text-Small lg:text-Base">
+                        <span class="font-Metral-Regular md:font-Metral-Bold">B</span> exists and in the right spot.
+                    </div>
+                </div>
+
+                <div id="positional" class="">
+                    <div id="exists-example" class="flex font-Metral-Medium md:text-Large lg:text-xl gap-2 ">
+                        <div class="border-b-4 border-gray-600 px-3">P</div>
+                        <div class="border-b-4 border-gray-600 px-3">L</div>
+                        <div class="border-b-4 border-yellow-400 text-yellow-400 px-3">E</div>
+                        <div class="border-b-4 border-gray-600 px-3">A</div>
+                    </div>
+                    <div id="exists-brief" class="font-Metral-ExtraLight mt-1 text-Tiny xsm:text-XSmall md:text-Small lg:text-Base">
+                        <span class="font-Metral-Regular md:font-Metral-Bold">P</span> exists but in the wrong spot.
+                    </div>
+                </div>
+
+                <div id="dne" class="">
+                    <div id="exists-example" class="flex font-Metral-Medium md:text-Large lg:text-xl gap-2 ">
+                        <div class="border-b-4 border-gray-600 px-3">L</div>
+                        <div class="border-b-4 border-red-600 text-red-600  px-3">F</div>
+                        <div class="border-b-4 border-gray-600 px-3">A</div>
+                        <div class="border-b-4 border-gray-600 px-3">P</div>
+                    </div>
+                    <div id="exists-brief" class="font-Metral-ExtraLight mt-1 text-Tiny xsm:text-XSmall md:text-Small lg:text-Base">
+                        <span class="font-Metral-Regular md:font-Metral-Bold">F</span> does not exist at all.
+                    </div>
+                </div>
+            </div>
+            <div class=" w-full flex justify-center my-4">
+                <hr class="w-4/5 border-[1px]">
+            </div>
+            <div class="w-full flex justify-center">
+                <p class="font-Metral-Light text-Tiny md:text-XSmall lg:text-Base">
+                    A new word is generated at midnight daily.
+                </p>
+            </div>
         </div>
-        
-        {% if show_new_row and not hide_new_row %}
-        <div class="flex flex-row gap-3">
-            <input type="{{ form.letterOne.field.widget.input_type }}" name="{{ form.letterOne.html_name }}" id="{{ form.letterOne.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterOne.auto_id }}')" class="input border-2 rounded-sm focus:outline-none focus:ring focus:ring-violet-300 flex justify-center items-center text-center bg-transparent py-2 px-1 max-w-20 text-2xl text-white" autofocus>
-            <input type="{{ form.letterTwo.field.widget.input_type }}" name="{{ form.letterTwo.html_name }}" id="{{ form.letterTwo.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterTwo.auto_id }}')" class="input border-2 rounded-sm flex justify-center items-center text-center bg-transparent py-2 px-1 max-w-20 text-2xl text-white">
-            <input type="{{ form.letterThree.field.widget.input_type }}" name="{{ form.letterThree.html_name }}" id="{{ form.letterThree.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterThree.auto_id }}')" class="input border-2 rounded-sm flex justify-center items-center text-center bg-transparent py-2 px-1 max-w-20 text-2xl text-white">
-            <input type="{{ form.letterFour.field.widget.input_type }}" name="{{ form.letterFour.html_name }}" id="{{ form.letterFour.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterFour.auto_id }}')" class="input border-2 rounded-sm flex justify-center items-center text-center bg-transparent py-2 px-1 max-w-20 text-2xl text-white" >
-            <input type="{{ form.letterFive.field.widget.input_type }}" name="{{ form.letterFive.html_name }}" id="{{ form.letterFive.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterFive.auto_id }}')" class="input border-2 rounded-sm flex justify-center items-center text-center bg-transparent py-2 px-1 max-w-20 text-2xl text-white" />
-            <input type="{{ form.letterSix.field.widget.input_type }}" name="{{ form.letterSix.html_name }}" id="{{ form.letterSix.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterSix.auto_id }}')" class="input border-2 rounded-sm  flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl text-white" >
+    </section>
+    <div class="flex md:items-center justify-center">
+        <div class="w-[80%] md:w-[2px] relative h-[2px] md:h-[80%] bg-white items-center">
         </div>
-        {% endif %}
     </div>
-</form>
+    <section class="w-full py-10 px-10">
+        <div id="glass" class="bg-white h-auto md:h-full w-full rounded-tl-2xl md:rounded-tl-none md:rounded-br-2xl rounded-tr-2xl py-8 px-3 md:px-10 flex items-center justify-center flex-col gap-4">
+            <div class="flex flex-col w-full ">
+                <div class="font-Metral-Light text-Medium flex justify-center gap-2 tracking-wide text-white">Remaining: <span class="text-red-600">3</span></div>
+                <div id="hint" class=" flex justify-center tracking-wider">
+                    <div class="font-Metral-ExtraLight hover:underline text-Small text-white -tracking-tighter">
+                        <h6 class="hover:underline pointer">Hint</h6>
+                    </div>
+                </div>
+            </div>
+            <form id="submitForm" method="POST" action="{% url "sixLetters:index" %}" class="">
+                {% csrf_token %}
+                <div
+                    id="body-content"
+                    class="flex  flex-row gap-1 xsm:gap-2 sm:gap-4 font-Metral-Regular md:font-Metral-ExtraBold {% if show_new_row %}flex-col gap-3{% endif %}"
+                >
+                    <div class="flex flex-row gap-3">
+                        <input type="{{ form.letterOne.field.widget.input_type }}" name="{{ form.letterOne.html_name }}" id="{{ form.letterOne.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterOne.auto_id }}')" class="input  disabled:opacity-65 {{ match_status_with_css.0 }} w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-whit" style="background-color: {% if not match_status_with_css.0 %} transparent  {% endif %} !important;" {% if match_status_with_css.0 %} disabled value="{{ form.letterOne.value }}" {% endif %} autofocus>
+                        <input type="{{ form.letterTwo.field.widget.input_type }}" name="{{ form.letterTwo.html_name }}" id="{{ form.letterTwo.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterTwo.auto_id }}')" class="input disabled:opacity-65 {{ match_status_with_css.1 }} w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-white" style="background-color: {% if not match_status_with_css.1 %} transparent {% endif %} !important;" {% if match_status_with_css.1 %} disabled value="{{ form.letterTwo.value }}" {% endif %}>
+                        <input type="{{ form.letterThree.field.widget.input_type }}" name="{{ form.letterThree.html_name }}" id="{{ form.letterThree.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterThree.auto_id }}')" class="input disabled:opacity-65 {{ match_status_with_css.2 }} w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-white" style="background-color: {% if not match_status_with_css.2 %} transparent {% endif %} !important;" {% if match_status_with_css.2 %} disabled value="{{ form.letterThree.value }}" {% endif %}>
+                        <input type="{{ form.letterFour.field.widget.input_type }}" name="{{ form.letterFour.html_name }}" id="{{ form.letterFour.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterFour.auto_id }}')" class="input disabled:opacity-65 {{ match_status_with_css.3 }} w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-white" style="background-color: {% if not match_status_with_css.3 %} transparent {% endif %} !important;" {% if match_status_with_css.3 %} disabled value="{{ form.letterFour.value }}" {% endif %}>
+                        <input type="{{ form.letterFive.field.widget.input_type }}" name="{{ form.letterFive.html_name }}" id="{{ form.letterFive.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterFive.auto_id }}')" class="input disabled:opacity-65 {{ match_status_with_css.4 }} w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-white" style="background-color: {% if not match_status_with_css.4 %} transparent {% endif %} !important;" {% if match_status_with_css.4 %} disabled value="{{ form.letterFive.value }}" {% endif %}>
+                        <input type="{{ form.letterSix.field.widget.input_type }}" name="{{ form.letterSix.html_name }}" id="{{ form.letterSix.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterSix.auto_id }}')" class="input disabled:opacity-65 {{ match_status_with_css.5 }} w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-white" style="background-color: {% if not match_status_with_css.5 %} transparent {% endif %} !important;" {% if match_status_with_css.5 %} disabled value="{{ form.letterSix.value }}" {% endif %}>
+                    </div>
+
+                    {% if show_new_row and not hide_new_row %}
+                    <div class="flex flex-row gap-3">
+                        <input type="{{ form.letterOne.field.widget.input_type }}" name="{{ form.letterOne.html_name }}" id="{{ form.letterOne.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterOne.auto_id }}')" class="input w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-white" autofocus>
+                        <input type="{{ form.letterTwo.field.widget.input_type }}" name="{{ form.letterTwo.html_name }}" id="{{ form.letterTwo.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterTwo.auto_id }}')" class="input w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-white">
+                        <input type="{{ form.letterThree.field.widget.input_type }}" name="{{ form.letterThree.html_name }}" id="{{ form.letterThree.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterThree.auto_id }}')" class="input w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-white">
+                        <input type="{{ form.letterFour.field.widget.input_type }}" name="{{ form.letterFour.html_name }}" id="{{ form.letterFour.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterFour.auto_id }}')" class="input w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-white" >
+                        <input type="{{ form.letterFive.field.widget.input_type }}" name="{{ form.letterFive.html_name }}" id="{{ form.letterFive.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterFive.auto_id }}')" class="input w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-white" />
+                        <input type="{{ form.letterSix.field.widget.input_type }}" name="{{ form.letterSix.html_name }}" id="{{ form.letterSix.auto_id }}" maxlength="1" oninput="capitalize('{{ form.letterSix.auto_id }}')" class="input w-full border-b-4 border-gray-600 text-white appearance-none bg-transparent flex justify-center items-center text-center py-2 px-1 max-w-20 text-2xl focus:border-b-4 focus:outline-none focus:border-white" />
+                    </div>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
 {% endblock body %}

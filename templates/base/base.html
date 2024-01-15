@@ -5,15 +5,19 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<script src="https://cdn.jsdelivr.net/npm/@tsparticles/preset-links@3/tsparticles.preset.links.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
         <title>
-			{% block title %}Wordle by 3-OAK Brothers{% endblock title %}
+			{% block title %}Wordathlon - OAK Brothers{% endblock title %}
 		</title>
 		<link rel="stylesheet" type="text/css" href="{% static '/styles/tailwindcss/input.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static '/styles/tailwindcss/output.css' %}" />
         {% block script %}{% endblock script %}
+		<script src="{% static 'scripts/particles.js' %}" defer></script>
 	</head>
 
-	<body class="bg-[#0B1340] h-screen w-screen flex items-center justify-center">
+	<body class="bg-[#0B1340] h-screen w-screen">
+		<div id="particles-js" class="absolute w-full h-screen"></div>
         {% block body %}
         {% endblock body %}
 	</body>

@@ -54,9 +54,9 @@ def indexView(request):
 
             match_status = letter_in_word(guess_word, new_answer_word)
             css_classes = {
-                "Match": "bg-green-300",
-                "Exists": "bg-yellow-300",
-                "NoMatch": "bg-red-300",
+                "Match": "border-green-500 text-green-500",
+                "Exists": "border-yellow-400 text-yellow-400",
+                "NoMatch": "border-red-600 text-red-600",
             }
 
             csss_classes = {
@@ -76,7 +76,7 @@ def indexView(request):
             hide_new_row = False
             print(match_status_with_css)
             # print(input_form.visible_fields())
-            if any(status in ("bg-red-300", "red", "bg-yellow-300", "yellow") for status in (match_status_with_css + match_status_with_csss)):
+            if any(status in ("border-red-600 text-red-600", "red", "border-yellow-400 text-yellow-400", "yellow") for status in (match_status_with_css + match_status_with_csss)):
                 show_new_row = True
                 # Keep the current form for the existing row
                 current_form = input_form
