@@ -6,6 +6,3 @@ node_modules
 ./wordleMain/settings.py
 ./static/scripts
 ./templates/base
-build_files.sh
-vercel.json
-./wordleMain/settings.py
