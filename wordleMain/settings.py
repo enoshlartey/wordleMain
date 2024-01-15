@@ -30,7 +30,7 @@ DEBUG = False
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1']
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -88,16 +88,16 @@ WSGI_APPLICATION = "wordleMain.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "railway",
-        "USER": "postgres",
-        "PASSWORD": "3eG-Faa1Fg165bFdeb455fB11eg5F-5C",
-        "HOST": "roundhouse.proxy.rlwy.net",
-        "PORT": "33866",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "railway",
+#         "USER": "postgres",
+#         "PASSWORD": "3eG-Faa1Fg165bFdeb455fB11eg5F-5C",
+#         "HOST": "roundhouse.proxy.rlwy.net",
+#         "PORT": "33866",
+#     }
+# }
 
 
 # Password validation
