@@ -11,5 +11,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
+
+        input.addEventListener("keydown", function (event) {
+            if (event.key === "Backspace" && this.value.length === 0) {
+                // Move to the previous input field if available
+                var prevInput = inputs[index - 1];
+                if (prevInput) {
+                    prevInput.focus();
+                }
+            }
+        });
     });
 });
