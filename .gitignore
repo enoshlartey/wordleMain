@@ -1,5 +1,8 @@
+./package.json
+./package-lock.json
 node_modules
 .env
 ./requirements.txt
+./wordleMain/settings.py
 ./static/scripts
 ./templates/base
