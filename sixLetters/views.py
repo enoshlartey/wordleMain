@@ -19,8 +19,13 @@ def letter_in_word(guess_word, answer_word):
 
     return match_status
 
+
 answer_word = RandomWord()
 new_answer_word = answer_word.word(word_min_length=6, word_max_length=6)
+
+
+correctly_guessed_letters = set()
+
 
 # Create your views here.
 def indexView(request):
@@ -30,7 +35,6 @@ def indexView(request):
     match_status = []
     match_status_with_css = []
     match_status_with_csss = []
-    
 
     current_guess = 1
 
@@ -44,12 +48,19 @@ def indexView(request):
             letter_five = input_form.cleaned_data.get("letterFive")
             letter_six = input_form.cleaned_data.get("letterSix")
 
-            guess_list = [letter_one, letter_two, letter_three, letter_four, letter_five, letter_six]
+            guess_list = [
+                letter_one,
+                letter_two,
+                letter_three,
+                letter_four,
+                letter_five,
+                letter_six,
+            ]
 
             guess_trials = len(guess_list)
 
             guess_word = "".join(guess_list).lower().strip()
-            
+
             print(f"Guess word: {guess_word}")
             print(f"Answer word: {new_answer_word}")
 
@@ -66,18 +77,31 @@ def indexView(request):
                 "NoMatch": "red",
             }
 
+            correctly_guessed_letters.update(
+                index for index, status in enumerate(match_status) if status == "Match"
+            )
+
             match_status_with_css = [
                 css_classes.get(status, "bg-transparent") for status in match_status
             ]
             match_status_with_csss = [
                 csss_classes.get(status, "transparent") for status in match_status
             ]
-            
+
             show_new_row = False
             hide_new_row = False
             print(match_status_with_css)
-            # print(input_form.visible_fields())
-            if any(status in ("border-red-600 text-red-600", "red", "border-yellow-400 text-yellow-400", "yellow") for status in (match_status_with_css + match_status_with_csss)):
+            
+            if any(
+                status
+                in (
+                    "border-red-600 text-red-600",
+                    "red",
+                    "border-yellow-400 text-yellow-400",
+                    "yellow",
+                )
+                for status in (match_status_with_css + match_status_with_csss)
+            ):
                 show_new_row = True
                 # Keep the current form for the existing row
                 current_form = input_form
@@ -94,7 +118,8 @@ def indexView(request):
                     "match_status_with_css": match_status_with_css,
                     "match_status_with_csss": match_status_with_csss,
                     "show_new_row": show_new_row,
-                    "hide_new_row": hide_new_row
+                    "hide_new_row": hide_new_row,
+                    "correctly_guessed_letters": correctly_guessed_letters,
                 },
             )
 
@@ -110,5 +135,6 @@ def indexView(request):
             "match_status_with_csss": match_status_with_csss,
             "show_new_row": False,
             "hide_new_row": False,
+            "correctly_guessed_letters": correctly_guessed_letters,
         },
     )

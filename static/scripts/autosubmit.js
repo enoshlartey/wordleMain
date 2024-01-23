@@ -3,8 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     intake.forEach(input => {
         input.addEventListener('input', () => {
-            const filledIntake = [...intake].filter(field => field.value !== '');
-            if (filledIntake.length === intake.length) {
+            const writableIntake = [...intake].filter(field => !field.classList.contains('read-only'));
+            const filledWritableIntake = writableIntake.filter(field => field.value !== '');
+
+            if (filledWritableIntake.length === writableIntake.length) {
                 document.getElementById('submitForm').submit();
             }
         });

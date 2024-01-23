@@ -1014,6 +1014,34 @@ video {
   border: 1px solid rgba(255, 255, 255, 0.067);
 }
 
+.read-only\:cursor-pointer:-moz-read-only {
+  cursor: pointer;
+}
+
+.read-only\:cursor-pointer:read-only {
+  cursor: pointer;
+}
+
+.read-only\:border-green-500:-moz-read-only {
+  --tw-border-opacity: 1;
+  border-color: rgb(34 197 94 / var(--tw-border-opacity));
+}
+
+.read-only\:border-green-500:read-only {
+  --tw-border-opacity: 1;
+  border-color: rgb(34 197 94 / var(--tw-border-opacity));
+}
+
+.read-only\:text-green-500:-moz-read-only {
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity));
+}
+
+.read-only\:text-green-500:read-only {
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity));
+}
+
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
